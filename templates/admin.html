@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - AZ Enterprises</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-box">
+            <div class="login-logo">🎒</div>
+            <h2>AZ Enterprises</h2>
+            <p>Admin Panel Login</p>
+            <form id="loginForm">
+                <input type="password" id="adminPassword" placeholder="Enter admin password" required>
+                <button type="submit" class="btn-primary btn-full">Login</button>
+            </form>
+            <a href="/" class="back-link">← Back to Store</a>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminDashboard" class="admin-dashboard" style="display:none;">
+        <aside class="admin-sidebar">
+            <div class="sidebar-brand">
+                <span>🎒</span>
+                <strong>AZ Admin</strong>
+            </div>
+            <nav class="sidebar-nav">
+                <button class="sidebar-btn active" data-tab="products">📦 Products</button>
+                <button class="sidebar-btn" data-tab="add-product">➕ Add Product</button>
+                <button class="sidebar-btn" data-tab="orders">📋 Orders</button>
+            </nav>
+            <a href="/" class="sidebar-link">🏠 View Store</a>
+            <button class="sidebar-btn logout-btn" id="logoutBtn">🚪 Logout</button>
+        </aside>
+
+        <main class="admin-main">
+            <!-- Products Tab -->
+            <section id="tab-products" class="admin-tab active">
+                <div class="tab-header">
+                    <h1>All Products</h1>
+                    <button class="btn-primary" onclick="switchTab('add-product')">+ Add New</button>
+                </div>
+                <div class="admin-table-wrap">
+                    <table class="admin-table" id="productsTable">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsTableBody">
+                            <tr><td colspan="6" class="loading">Loading...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Add Product Tab -->
+            <section id="tab-add-product" class="admin-tab">
+                <div class="tab-header">
+                    <h1 id="formTitle">Add New Product</h1>
+                </div>
+                <form id="productForm" class="admin-form">
+                    <input type="hidden" id="editProductId">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Product Name *</label>
+                            <input type="text" id="productName" required placeholder="e.g. Premium Laptop Bag">
+                        </div>
+                        <div class="form-group">
+                            <label>Price (₹) *</label>
+                            <input type="number" id="productPrice" required min="1" placeholder="999">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select id="productCategory">
+                                <option value="School Bags">School Bags</option>
+                                <option value="Laptop Bags">Laptop Bags</option>
+                                <option value="Travel Bags">Travel Bags</option>
+                                <option value="Handbags">Handbags</option>
+                                <option value="Office Bags">Office Bags</option>
+                                <option value="General">General</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Stock</label>
+                            <input type="number" id="productStock" value="10" min="0">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Image URL</label>
+                        <input type="url" id="productImage" placeholder="https://example.com/bag-image.jpg">
+                        <small>Paste image URL from internet (Unsplash, etc.)</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="productDescription" rows="4" placeholder="Product description, features, material..."></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary" id="submitBtn">Save Product</button>
+                        <button type="button" class="btn-secondary" id="cancelEditBtn" style="display:none;">Cancel Edit</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Orders Tab -->
+            <section id="tab-orders" class="admin-tab">
+                <div class="tab-header">
+                    <h1>All Orders</h1>
+                </div>
+                <div class="admin-table-wrap">
+                    <table class="admin-table" id="ordersTable">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Product</th>
+                                <th>Customer</th>
+                                <th>Location</th>
+                                <th>Total</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <tr><td colspan="7" class="loading">Loading...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="toast" id="toast"></div>
+    <script src="/static/js/admin.js"></script>
+</body>
+</html>
